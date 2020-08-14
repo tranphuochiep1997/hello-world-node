@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  hello-world-node-lb:
+    image: tranphuochiep/hello-world-node-lb:1.0.0
+    container_name: hello-world-node-lb
+    ports:
+      - "5000:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - hello-world-node
+    depends_on:
+      - hello-world-node-1
+
+  hello-world-node-1:
+    image: tranphuochiep/hello-world-node:1.0.0
+    container_name: hello-world-node-1
+    environment:
+      - NODE_ENV=production
+      - PORT=80
+    networks:
+      - hello-world-node
+
+  hello-world-node-2:
+    image: tranphuochiep/hello-world-node:1.0.0
+    container_name: hello-world-node-2
+    environment:
+      - NODE_ENV=production
+      - PORT=80
+    networks:
+      - hello-world-node
+  
+  hello-world-node-3:
+    image: tranphuochiep/hello-world-node:1.0.0
+    container_name: hello-world-node-3
+    environment:
+      - NODE_ENV=production
+      - PORT=80
+    networks:
+      - hello-world-node
+networks:
+  hello-world-node:
